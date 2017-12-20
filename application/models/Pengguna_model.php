@@ -70,6 +70,28 @@ class Pengguna_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    //register user sama kaya create
+    public function register_user($user){
+        $this->db->insert($this->table, $user);
+    }
+
+    
+    public function login_user($email,$pass){
+ 
+      $this->db->select('*');
+      $this->db->from($this->table);
+      $this->db->where('user_email',$email);
+      $this->db->where('user_password',$pass);
+     
+      if($query=$this->db->get())
+      {
+          return $query->row_array();
+      }
+      else{
+        return false;
+      }
+    }
+
 }
 
 /* End of file Pengguna_model.php */
