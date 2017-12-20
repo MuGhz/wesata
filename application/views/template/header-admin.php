@@ -82,6 +82,8 @@ background-color: #01665c;
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
               <li class="active"><a href="#">We-sata</a></li>
+              <li><a href="<?php echo base_url('home'); ?>">Beranda</a></li>
+              <li><a href="<?php echo base_url('cari_wisata'); ?>">Cari Wisata</a></li>
               <li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class="glyphicon glyphicon-list"></span> Data <b class='caret'></b></a>
                   <ul class='dropdown-menu'>
                       <li><?php echo anchor('wisata','Wisata') ?></li>
@@ -99,11 +101,22 @@ background-color: #01665c;
                   </ul>
               </li>
 
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-
+              <?php
+                 if ($this->session->userdata('username') === NULL) {
+              ?>
+                <li><a href="<?php echo base_url('login/login_view'); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <?php
+                }
+                else {
+              ?>
+                <li><a href="<?php echo base_url('login/user_profile'); ?>"><span class="glyphicon glyphicon-user"></span> <?php echo  $this->session->userdata('nama')?></a></li>
+              <?php
+                }
+              ?>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

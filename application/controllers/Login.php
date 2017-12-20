@@ -12,7 +12,7 @@ public function __construct(){
 
 public function index()
 {
-$this->load->view("register.php");
+$this->load->view("register");
 }
 
 public function register_user(){
@@ -23,18 +23,18 @@ public function register_user(){
       'nama'=>$this->input->post('nama'));
        print_r($user);
 
-$email_check=$this->user_model->email_check($user['user_email']);
+  $username_check=$this->Pengguna_model->username_check($user['username']);
 
-if($email_check){
-  $this->user_model->register_user($user);
+if($username_check){
+  $this->Pengguna_model->register_user($user);
   $this->session->set_flashdata('success_msg', 'Registered successfully.Now login to your account.');
-  redirect('user/login_view');
+  redirect('login/login_view');
 
 }
 else{
 
   $this->session->set_flashdata('error_msg', 'Error occured,Try again.');
-  redirect('user');
+  redirect('login');
 
 
 }
@@ -58,9 +58,9 @@ function login_user(){
     $data=$this->Pengguna_model->login_user($user_login['username'],$user_login['password']);
       if($data)
       {
-        $this->session->set_userdata('username',$data['user_id']);
-        $this->session->set_userdata('name',$data['username']);
-        $this->session->set_userdata('id_pengguna',$data['id_pengguna']);
+        $this->session->set_userdata('username',$data['username']);
+        $this->session->set_userdata('nama',$data['nama']);
+        $this->session->set_userdata('id_user',$data['id_user']);
  
         $this->load->view('user_profile.php');
  
@@ -82,7 +82,7 @@ $this->load->view('user_profile.php');
 public function user_logout(){
  
   $this->session->sess_destroy();
-  redirect('user/login_view', 'refresh');
+  redirect('login/login_view', 'refresh');
 }
 
 
