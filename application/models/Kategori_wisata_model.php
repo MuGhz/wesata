@@ -8,6 +8,7 @@ class Kategori_wisata_model extends CI_Model
 
     public $table = 'kategori_wisata';
     public $id = 'id_wisata';
+    public $id_kategori = 'id_kategori';
     public $order = 'DESC';
 
     function __construct()
@@ -29,6 +30,19 @@ class Kategori_wisata_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
     
+
+    // get data by id
+    function get_by_data($data)
+    {
+        $this->db->where('id_kategori !=', '0');
+        // var_dump($data);
+        // foreach ($data as $key) {
+        //     // var_dump($key);
+        //     $this->db->or_where($this->id_kategori, $key);
+        // }
+        return $this->db->get($this->table)->row();
+    }
+
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id_wisata', $q);

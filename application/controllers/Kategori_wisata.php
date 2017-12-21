@@ -77,6 +77,8 @@ class Kategori_wisata extends CI_Controller
             $this->create();
         } else {
             $data = array(
+            'id_wisata' => $this->input->post('id_wisata',TRUE),
+            'id_kategori' => $this->input->post('id_kategori',TRUE),                
 	    );
 
             $this->Kategori_wisata_model->insert($data);

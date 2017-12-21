@@ -26,11 +26,15 @@ $this->load->view('template/header-admin');
             <label for="varchar">Keterangan <?php echo form_error('keterangan') ?></label>
             <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" value="<?php echo $keterangan; ?>" />
         </div>
+	    <div class="form-group">
+            <label for="int">Id Kategori <?php echo form_error('id_kategori') ?></label>
+            <input type="text" class="form-control" name="id_kategori" id="id_kategori" placeholder="Id Kategori" value="<?php echo $id_kategori; ?>" />
+        </div>
 	    <input type="hidden" name="id_wisata" value="<?php echo $id_wisata; ?>" /> 
 	    <button type="submit" class="btn btn-primary base-background white"><?php echo $button ?></button> 
 	    <a href="<?php echo site_url('wisata') ?>" class="btn btn-default">Cancel</a>
 	</form>
-</div>
+    </div>
 </div>
 </div>
 <?php 

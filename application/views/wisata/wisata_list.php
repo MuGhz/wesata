@@ -25,7 +25,7 @@ $this->load->view('template/header-admin');
                                 if ($q <> '')
                                 {
                                     ?>
-                                    <a href="<?php echo site_url('wisata'); ?>" class="btn btn-default base-background white">Reset</a>
+                                    <a href="<?php echo site_url('wisata'); ?>" class="btn btn-default">Reset</a>
                                     <?php
                                 }
                             ?>
@@ -43,6 +43,7 @@ $this->load->view('template/header-admin');
 		<th>Namawisata</th>
 		<th>Biayawisata</th>
 		<th>Keterangan</th>
+		<th>Id Kategori</th>
 		<th>Action</th>
             </tr><?php
             foreach ($wisata_data as $wisata)
@@ -55,6 +56,7 @@ $this->load->view('template/header-admin');
 			<td><?php echo $wisata->namawisata ?></td>
 			<td><?php echo $wisata->biayawisata ?></td>
 			<td><?php echo $wisata->keterangan ?></td>
+			<td><?php echo $wisata->id_kategori ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('wisata/read/'.$wisata->id_wisata),'Read'); 
@@ -72,7 +74,6 @@ $this->load->view('template/header-admin');
         <div class="row">
             <div class="col-md-6">
                 <a href="#" class="btn btn-primary base-background white">Total Record : <?php echo $total_rows ?></a>
-		<?php echo anchor(site_url('wisata/excel'), 'Excel', 'class="btn btn-primary base-background white"'); ?>
 	    </div>
             <div class="col-md-6 text-right">
                 <?php echo $pagination ?>

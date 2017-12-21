@@ -10,9 +10,10 @@ $this->load->view('template/header-admin');
 	    <tr><td>Namawisata</td><td><?php echo $namawisata; ?></td></tr>
 	    <tr><td>Biayawisata</td><td><?php echo $biayawisata; ?></td></tr>
 	    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
+	    <tr><td>Id Kategori</td><td><?php echo $id_kategori; ?></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('wisata') ?>" class="btn btn-default">Cancel</a></td></tr>
 	</table>
-</div>
+      </div>
 </div>
 </div>
 <?php 
