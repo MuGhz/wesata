@@ -108,6 +108,21 @@ class Pengguna_model extends CI_Model
      
     }
 
+    public function get_favorit($id_user){
+      $this->db->select('id_wisata');
+      $this->db->from('favorit');
+      $this->db->where('id_user',$id_user);
+      $query=$this->db->get()->result();
+      console.log($query);
+      $this->db->select('*');
+      $this->db->from("wisata");
+      foreach ($query as $row) {
+        $this->db->where('id_wisata',$row->id_wisata);
+      }
+      return $this->db->get()->result();
+      
+    }
+
 }
 
 /* End of file Pengguna_model.php */

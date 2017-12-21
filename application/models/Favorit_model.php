@@ -28,6 +28,12 @@ class Favorit_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
+
+    function get_by_ids($user, $wisata) {
+        $this->db->where($this->id, $user);
+        $this->db->where("id_wisata", $wisata);
+        return $this->db->get($this->table)->row();
+    }
     
     // get total rows
     function total_rows($q = NULL) {
@@ -58,10 +64,12 @@ class Favorit_model extends CI_Model
     }
 
     // delete data
-    function delete($id)
+    function delete($data)
     {
-        $this->db->where($this->id, $id);
-        $this->db->delete($this->table);
+
+        // $this->db->where($this->id, $data->id_user);
+        // $this->db->where('id_wisata', $data->id_wisata);
+        $this->db->delete($this->table, $data);
     }
 
 }

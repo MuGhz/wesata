@@ -74,8 +74,9 @@ function login_user(){
 }
 
 function user_profile(){
- 
-$this->load->view('user_profile.php');
+  // $wisata_data=$this->Pengguna_model->get_favorit($this->session->userdata('id_user'));
+  // $data = {'wisata_data' => $wisata_data};
+  $this->load->view('user_profile.php');
  
 }
 
