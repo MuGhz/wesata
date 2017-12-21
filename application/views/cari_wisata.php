@@ -107,12 +107,13 @@ $this->load->view('template/header-admin');
         </div>
     </div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBosE8LmFLSBAWaziP98H3Zbfm62sFBpXU&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBosE8LmFLSBAWaziP98H3Zbfm62sFBpXU&callback=initMap&v=3&libraries=geometry"
     async defer></script>
 <script>
     var map;
     var markers = [];
     var infoWindow;
+
     function initMap() {
         // console.log($wisata_data);
         var mapOptions = {
@@ -162,7 +163,10 @@ $this->load->view('template/header-admin');
             // console.log(pos.lat);
             // console.log(pos.lng);
             // console.log(myLatLng.lat);
-            $dist = distance(pos.lat,pos.lng,myLatLng.lat,myLatLng.lng);
+            // $dist = distance(pos.lat,pos.lng,myLatLng.lat,myLatLng.lng);
+            $objA = new google.maps.LatLng(pos.lat,pos.lng);
+            $objB = new google.maps.LatLng(myLatLng.lat,myLatLng.lng);
+            $dist = google.maps.geometry.spherical.computeDistanceBetween($objA, $objB) /1000;
             console.log($dist + " km");
             addMarker(wisata_data[index],myLatLng, $dist);
         }
@@ -249,10 +253,13 @@ $this->load->view('template/header-admin');
                     clearmap();
                     //load marker
                         var myLatLng = {lat: parseFloat(data.datawisata.latitude), lng: parseFloat(data.datawisata.longitude)};
-                        var pos = {lat: parseFloat(data.datawisata.latitude), lng: parseFloat(data.datawisata.longitude)};
+                        var pos = {
+                          lat: -6.361227310772651,
+                          lng: 106.82789605110884
+                        };
                         if (navigator.geolocation) {
                           navigator.geolocation.getCurrentPosition(function(position) {
-                            var pos = {
+                            pos = {
                               lat: position.coords.latitude,
                               lng: position.coords.longitude
                             };
@@ -263,12 +270,15 @@ $this->load->view('template/header-admin');
                             handleLocationError(true, infoWindow, map.getCenter());
                           });
                         } else {
-                          // Browser doesn't support Geolocation
-                          handleLocationError(false, infoWindow, map.getCenter());
+                              // Browser doesn't support Geolocation
+                              handleLocationError(false, infoWindow, map.getCenter());
                         }
 
                         $wisata = data.datawisata;
-                        $dist = distance(pos.lat,pos.lng,myLatLng.lat,myLatLng.lng);
+                        // $dist = distance(pos.lat,pos.lng,myLatLng.lat,myLatLng.lng);
+                        $objA = new google.maps.LatLng(pos.lat,pos.lng);
+                        $objB = new google.maps.LatLng(myLatLng.lat,myLatLng.lng);
+                        $dist = google.maps.geometry.spherical.computeDistanceBetween($objA, $objB) /1000;
                         // console.log($wisata.latitude);
                         addMarker($wisata,myLatLng,$dist);
                         map.setCenter(myLatLng);
@@ -322,12 +332,23 @@ $this->load->view('template/header-admin');
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });
-
-        var marker = new google.maps.Marker({
-            position: location,
-            map: map,
-            title : wisata.namawisata
-        });
+        if (wisata.id_kategori) {
+            var marker = new google.maps.Marker({
+                position: location,
+                icon: icons[wisata.id_kategori].icon,
+                map: map,
+                title : wisata.namawisata
+            });
+        }
+        else{
+            var marker = new google.maps.Marker({
+                position: location,
+                // icon: icons[wisata.id_kategori].icon,
+                map: map,
+                title : wisata.namawisata
+            });
+        }
+        
 
         marker.addListener('click', function() {
           infowindow.open(map, marker);
@@ -350,16 +371,16 @@ $this->load->view('template/header-admin');
         return dist
     }
 
-    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    var iconBase = "<?=base_url();?>assets/";
     var icons = {
-      parking: {
-        icon: iconBase + 'parking_lot_maps.png'
+      1: {
+        icon: iconBase + 'waterfall.png'
       },
-      library: {
-        icon: iconBase + 'library_maps.png'
+      2: {
+        icon: iconBase + 'mill.png'
       },
-      info: {
-        icon: iconBase + 'info-i_maps.png'
+      3: {
+        icon: iconBase + 'village.png'
       }
     };
 </script>

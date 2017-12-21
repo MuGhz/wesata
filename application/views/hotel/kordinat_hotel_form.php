@@ -105,6 +105,24 @@ $this->load->view('template/header-admin');
 
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('My Location');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+        
         // Add a listener for the click event
         google.maps.event.addListener(map, 'rightclick', addLatLng);
         google.maps.event.addListener(map, "rightclick", function(event) {
